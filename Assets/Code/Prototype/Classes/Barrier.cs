@@ -4,8 +4,10 @@ using System;
 
 namespace Assets.Code.Prototype.Classes
 {
+    [AddComponentMenu("Pieces/Barrier", 0)]
     public class Barrier : Piece
     {
+        //TODO: Find a better way to reset the shrink amount than this hack.
         /// <summary>
         /// The number of shrinks the object can do before it's culled.
         /// </summary>
