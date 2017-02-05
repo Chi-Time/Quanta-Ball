@@ -90,7 +90,7 @@ namespace Assets.Code.Prototype.Classes
 
         private bool IsGrounded ()
         {
-            if (Physics.Linecast (_Transform.position, new Vector3 (_Transform.position.x, _Transform.position.y - 1f, _Transform.position.z), _Ground))
+            if (Physics.Linecast (_Transform.position, new Vector3 (_Transform.position.x, _Transform.position.y - 1f, _Transform.position.z), _GroundLayer))
                 return true;
 
             return false;
