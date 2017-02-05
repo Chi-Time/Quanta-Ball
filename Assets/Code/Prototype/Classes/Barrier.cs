@@ -27,6 +27,7 @@ namespace Assets.Code.Prototype.Classes
 
             _ShrinkScale = 1 / (float)_ShrinkAmount;
             _CachedShrinkAmount = _ShrinkAmount;
+            this.gameObject.tag = "Barrier";
         }
 
         private void OnEnable ()
