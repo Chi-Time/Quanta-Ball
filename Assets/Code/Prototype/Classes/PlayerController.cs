@@ -121,10 +121,13 @@ namespace Assets.Code.Prototype.Classes
 
         private void OnTriggerEnter (Collider other)
         {
-            if(other.gameObject.CompareTag("Sequence"))
+            if(other.gameObject.CompareTag("Sequence Trigger"))
             {
                 //TODO: Implement generator callback for next sequence.
+                var lg = GameController.Instance.GetComponent<LevelGenerator> ();
+                lg.StartSequence ();
                 GameController.Instance.Score++;
+                Destroy (other.gameObject);
             }
         }
     }
