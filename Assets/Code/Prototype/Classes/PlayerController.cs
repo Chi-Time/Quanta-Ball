@@ -27,6 +27,7 @@ namespace Assets.Code.Prototype.Classes
         {
             _Rigidbody = GetComponent<Rigidbody> ();
             _Transform = GetComponent<Transform> ();
+            this.gameObject.layer = LayerMask.NameToLayer ("Water");
         }
 
         private void Start ()
@@ -49,7 +50,7 @@ namespace Assets.Code.Prototype.Classes
         private void GetInput ()
         {
             #if UNITY_STANDALONE
-            if (Input.GetButtonDown("fire1"))
+            if (Input.GetButtonDown("Fire1"))
                 ChangeMovementDirection ();
             #endif
             #if UNITY_ANDROID
