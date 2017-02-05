@@ -123,6 +123,7 @@ namespace Assets.Code.Prototype.Classes
             if(other.gameObject.CompareTag("Sequence"))
             {
                 //TODO: Implement generator callback for next sequence.
+                GameController.Instance.Score++;
             }
         }
     }
