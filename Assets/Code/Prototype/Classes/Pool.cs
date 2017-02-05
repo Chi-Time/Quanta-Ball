@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.Code.Prototype.Classes
 {
+    [System.Serializable]
     public class Pool
     {
         [Header("Configuration")]
@@ -12,14 +13,12 @@ namespace Assets.Code.Prototype.Classes
         [Tooltip("The number barriers pre-spawned into the barriers pool.")]
         [SerializeField] private int _BarrierPoolSize = 12;
 
-        [Space(20)]
         [Header("Objects")]
         [Tooltip("The floor prefab to use.")]
         [SerializeField] private Piece _FloorPrefab = null;
         [Tooltip("The barrier prefab to use.")]
         [SerializeField] private Piece _BarrierPrefab = null;
 
-        [Space (20)]
         [Header("Pools")]
         [Tooltip("The object pool of Floors. NOTE: Read only, don't edit.")]
         [SerializeField] private List<Piece> _Floors = new List<Piece> ();
