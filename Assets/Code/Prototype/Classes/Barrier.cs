@@ -58,7 +58,8 @@ namespace Assets.Code.Prototype.Classes
 
         public override void Cull ()
         {
-            //TODO: Return item to pool.
+            if (Pool != null)
+                Pool.ReturnBarrier (this);
         }
     }
 }
