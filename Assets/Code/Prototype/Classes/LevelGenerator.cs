@@ -124,7 +124,7 @@ namespace Assets.Code.Prototype.Classes
                     if (i == 4)
                         SpawnSequenceTrigger (new Vector3 (_Anchor.x - i, 0f, _Anchor.z));
 
-                    _CurrentSequence.Add (GetFloor (new Vector3 (_Anchor.x - i, 0f, _Anchor.z)));
+                    _CurrentSequence.Add (GetFloor (new Vector3 (_Anchor.x - i, -2f, _Anchor.z)));
 
                     yield return new WaitForSeconds (delay);
                 }
