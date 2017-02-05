@@ -5,11 +5,19 @@ namespace Assets.Code.Prototype.Classes
 {
     public abstract class Piece : MonoBehaviour
     {
+        /// <summary>
+        /// The spawn position for the object to move to.
+        /// </summary>
         public Vector3 SpawnPosition = Vector3.zero;
+        /// <summary>
+        /// The position for the object to move to when being culled.
+        /// </summary>
         public Vector3 LeavePosition = Vector3.zero;
         public Pool Pool = null;
 
+        [Tooltip("The speed at which the object moves to it's spawn position.")]
         [SerializeField] protected float _SpawnTransitionSpeed = .5f;
+        [Tooltip("The speed at which the object leaves when culled.")]
         [SerializeField] protected float _LeaveTransitionSpeed = 1f;
 
         protected Transform _Transform = null;
