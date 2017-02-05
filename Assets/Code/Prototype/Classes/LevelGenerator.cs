@@ -25,7 +25,7 @@ namespace Assets.Code.Prototype.Classes
 
         private void AssignReferences ()
         {
-            _Pool.Init ();
+            _Pool.Init (this);
         }
 
         private void SpawnIntitialFlooring ()
