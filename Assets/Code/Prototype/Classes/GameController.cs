@@ -15,6 +15,7 @@ namespace Assets.Code.Prototype.Classes
         private void Awake ()
         {
             Instance = this;
+            this.gameObject.tag = "GameController";
         }
 
         private void ChangeScore (int score)
