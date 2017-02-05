@@ -105,7 +105,7 @@ namespace Assets.Code.Prototype.Classes
             {
                 for (int i = 0; i < 7; i++)
                     if (i == 0 || i == 6)
-                        _CullingPool.Add (GetBarrier (new Vector3 (_Anchor.x - (i + 1), 0f, _Anchor.z), new Vector3 (90f, 90f, 90f)));
+                        _CullingPool.Add (GetBarrier (new Vector3 (_Anchor.x - i, 0f, _Anchor.z), new Vector3 (90f, 90f, 90f)));
             }
         }
 
