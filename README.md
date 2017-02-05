@@ -1,1 +1,1 @@
-# Quantic-Ball
+# Quanta-Ball
