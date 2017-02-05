@@ -25,8 +25,9 @@ namespace Assets.Code.Prototype.Classes
         [Tooltip ("The object pool of Barriers. NOTE: Read only, don't edit.")]
         [SerializeField] private List<Piece> _Barriers = new List<Piece> ();
 
-        public void Init ()
+        public void Init (MonoBehaviour behaviour)
         {
+            CreateObjectHolders (behaviour);
             GeneratePools ();
         }
 
@@ -39,11 +40,22 @@ namespace Assets.Code.Prototype.Classes
                 _Barriers.Add (SpawnBarrier ());
         }
 
+        private void CreateObjectHolders (MonoBehaviour behaviour)
+        {
+            var level = new GameObject ("Level");
+            var floors = new GameObject ("Floors");
+            var barriers = new GameObject ("Barriers");
+
+            level.transform.SetParent (behaviour.transform);
+            floors.transform.SetParent (level.transform);
+            barriers.transform.SetParent (level.transform);
+        }
+
         private Piece SpawnFloor ()
         {
             var go = (GameObject)Object.Instantiate (_FloorPrefab.gameObject, Vector3.zero, Quaternion.identity);
 
-            var c = SetupObject (go, "World", "Floor").GetComponent<Piece> ();
+            var c = SetupObject (go, "Floors", "Floor").GetComponent<Piece> ();
             c.Pool = this;
 
             return c;
@@ -53,7 +65,7 @@ namespace Assets.Code.Prototype.Classes
         {
             var go = (GameObject)Object.Instantiate (_BarrierPrefab.gameObject, Vector3.zero, Quaternion.identity);
 
-            var c = SetupObject (go, "World", "Barrier").GetComponent<Piece> ();
+            var c = SetupObject (go, "Barriers", "Barrier").GetComponent<Piece> ();
             c.Pool = this;
 
             return c;
