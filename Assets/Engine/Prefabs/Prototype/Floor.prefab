@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400471738264564}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -106,5 +106,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnPosition: {x: 0, y: 0, z: 0}
   LeavePosition: {x: 0, y: 0, z: 0}
+  Pool:
+    _FloorPoolSize: 35
+    _BarrierPoolSize: 12
+    _FloorPrefab: {fileID: 0}
+    _BarrierPrefab: {fileID: 0}
+    _Floors: []
+    _Barriers: []
   _SpawnTransitionSpeed: 0.5
   _LeaveTransitionSpeed: 1
