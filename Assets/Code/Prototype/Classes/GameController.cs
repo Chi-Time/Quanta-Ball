@@ -22,10 +22,8 @@ namespace Assets.Code.Prototype.Classes
         {
             _Score = score;
 
-            if(score % 5 == 0)
-            {
-                //TODO: Change player's movement speed.
-            }
+            if(score % 5 == 0 && _Score <= 30)
+                GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ()._MovementSpeed += 50f;
         }
     }
 }
