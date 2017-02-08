@@ -81,10 +81,12 @@ namespace Assets.Code.Prototype.Classes
         {
             if(IsGrounded())
             {
+                GameController.Instance.IsGameOver = false;
                 _Rigidbody.velocity = _MovementDirection * _MovementSpeed * Time.fixedDeltaTime;
             }
             else
             {
+                GameController.Instance.IsGameOver = true;
                 _Rigidbody.velocity = new Vector3 (_Rigidbody.velocity.x, _Rigidbody.velocity.y, _Rigidbody.velocity.z);
             }
         }
