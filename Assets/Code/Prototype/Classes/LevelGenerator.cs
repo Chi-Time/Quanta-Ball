@@ -20,12 +20,47 @@ namespace Assets.Code.Prototype.Classes
         private void Awake ()
         {
             AssignReferences ();
-            SpawnIntitialFlooring ();
         }
 
         private void AssignReferences ()
         {
             _Pool.Init (this);
+        }
+
+        private void Start ()
+        {
+            StartLevel ();
+        }
+
+        private void StartLevel ()
+        {
+            _IsForward = false;
+            SpawnIntitialFlooring ();
+            StartCoroutine (SpawnFlooringSequence (.05f));
+        }
+
+        public void ResetLevel ()
+        {
+            CullAllObjects ();
+            ResetSystems ();
+            StartLevel ();
+        }
+
+        private void CullAllObjects ()
+        {
+            for (int i = 0; i < _CullingPool.Count; i++)
+                _CullingPool[i].Cull ();
+
+            for (int i = 0; i < _CurrentSequence.Count; i++)
+                _CurrentSequence[i].Cull ();
+        }
+
+        private void ResetSystems ()
+        {
+            _CullingPool.Clear ();
+            _CullingPool.TrimExcess ();
+            _CurrentSequence.Clear ();
+            _CurrentSequence.TrimExcess ();
         }
 
         private void SpawnIntitialFlooring ()
@@ -74,11 +109,6 @@ namespace Assets.Code.Prototype.Classes
             col.isTrigger = true;
 
             return go;
-        }
-
-        private void Start ()
-        {
-            StartCoroutine (SpawnFlooringSequence (.05f));
         }
         
         public void StartSequence ()

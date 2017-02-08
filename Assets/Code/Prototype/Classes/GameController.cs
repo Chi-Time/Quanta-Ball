@@ -3,7 +3,8 @@ using System.Collections;
 
 namespace Assets.Code.Prototype.Classes
 {
-    [AddComponentMenu("Controllers/Game Controller")]
+    //TODO: Consider using an event system to make a reset callback on all objects that need to reset.
+    [AddComponentMenu ("Controllers/Game Controller")]
     public class GameController : MonoBehaviour
     {
         public int Score { get { return _Score; } set { ChangeScore (value); } }

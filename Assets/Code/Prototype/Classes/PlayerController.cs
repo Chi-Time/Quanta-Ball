@@ -18,6 +18,14 @@ namespace Assets.Code.Prototype.Classes
         private Transform _Transform = null;
         private Vector3 _MovementDirection = Vector3.zero;
 
+        public void ResetBall ()
+        {
+            _Rigidbody.velocity = Vector3.zero;
+            //TODO: Cache value later.
+            _MovementSpeed = 350.0f;
+            _MovementDirection = Vector3.zero;
+        } 
+
         private void Awake ()
         {
             AssignReferences ();
