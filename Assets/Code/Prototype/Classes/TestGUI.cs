@@ -16,7 +16,11 @@ namespace Assets.Code.Prototype.Classes
                     //SceneManager.LoadScene (0);
                     ResetLevel ();
                 }
+
+                Cursor.visible = true;
             }
+            else
+                Cursor.visible = false;
         }
 
         private void ResetLevel ()
@@ -35,6 +39,8 @@ namespace Assets.Code.Prototype.Classes
 
             if (st)
                 Destroy (st);
+
+            GameController.Instance.Score = 0;
         }
     }
 }
