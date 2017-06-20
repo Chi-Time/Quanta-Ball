@@ -90,18 +90,22 @@ namespace Assets.Code.Prototype.Classes
             if(IsGrounded())
             {
                 GameController.Instance.IsGameOver = false;
+                Camera.main.GetComponent<CameraController2D> ().Target = this.gameObject.transform;
                 _Rigidbody.velocity = _MovementDirection * _MovementSpeed * Time.fixedDeltaTime;
             }
             else
             {
                 GameController.Instance.IsGameOver = true;
+                Camera.main.GetComponent<CameraController2D> ().Target = null;
                 _Rigidbody.velocity = new Vector3 (_Rigidbody.velocity.x, _Rigidbody.velocity.y, _Rigidbody.velocity.z);
             }
         }
 
         private bool IsGrounded ()
         {
-            if (Physics.Linecast (_Transform.position, new Vector3 (_Transform.position.x, _Transform.position.y - 1f, _Transform.position.z), _GroundLayer))
+            var endPos = new Vector3 (_Transform.position.x, _Transform.position.y - 1f, _Transform.position.z);
+
+            if (Physics.Linecast (_Transform.position, endPos, _GroundLayer))
                 return true;
 
             return false;
