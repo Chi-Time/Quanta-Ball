@@ -16,13 +16,13 @@ namespace Assets.Code.Prototype.Classes
 
         private Rigidbody _Rigidbody = null;
         private Transform _Transform = null;
+        private float _CMovementSpeed = 0.0f;
         private Vector3 _MovementDirection = Vector3.zero;
 
         public void ResetBall ()
         {
             _Rigidbody.velocity = Vector3.zero;
-            //TODO: Cache value later.
-            _MovementSpeed = 350.0f;
+            _MovementSpeed = _CMovementSpeed;
             _MovementDirection = Vector3.zero;
         } 
 
@@ -48,6 +48,7 @@ namespace Assets.Code.Prototype.Classes
             _MovementDirection = Vector3.zero;
             _Rigidbody.useGravity = true;
             _Rigidbody.isKinematic = false;
+            _CMovementSpeed = _MovementSpeed;
         }
 
         private void Update ()
