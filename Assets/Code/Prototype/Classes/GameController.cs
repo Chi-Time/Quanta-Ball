@@ -25,6 +25,7 @@ namespace Assets.Code.Prototype.Classes
         {
             _Score = score;
 
+            // If the score is a multiple of 5 or has hit 30. Increase player speed and cap it.
             if(score % 5 == 0 && _Score <= 30)
                 GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ()._MovementSpeed += 50f;
         }
