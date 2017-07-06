@@ -9,13 +9,10 @@ namespace Assets.Code.Prototype.Classes
         {
             GUI.Label (new Rect (150, 150, 250, 100), "Score: " + GameController.Instance.Score);
 
-            if (GameController.Instance.IsGameOver)
+            if (GameController.CurrentState == GameStates.GameOver)
             {
                 if (GUI.Button (new Rect (Screen.width / 2 - 50, Screen.height / 2 + 25, 150, 50), "Restart"))
-                {
-                    //SceneManager.LoadScene (0);
                     ResetLevel ();
-                }
 
                 Cursor.visible = true;
             }
