@@ -50,8 +50,8 @@ namespace Assets.Code.Prototype.Classes
         private void DisplayScreen (GameObject screenToDisplay)
         {
             _StartScreen.gameObject.SetActive (false);
-            _SettingsScreen.SetActive (false);
-            _StatsScreen.SetActive (false);
+            _SettingsScreen.gameObject.SetActive (false);
+            _StatsScreen.gameObject.SetActive (false);
             _GameScreen.gameObject.SetActive (false);
             _PauseScreen.gameObject.SetActive (false);
             _GameOverScreen.gameObject.SetActive (false);
