@@ -22,6 +22,7 @@ namespace Assets.Code.Prototype.Classes
 
         private void ResetLevel ()
         {
+            EventManager.ChangeState (GameStates.Restart);
         }
     }
 }
