@@ -6,7 +6,7 @@ namespace Assets.Code.Prototype.Classes
     {
         public void StartGame ()
         {
-
+            EventManager.ChangeState (GameStates.Game);
         }
 
         public void Exit ()
