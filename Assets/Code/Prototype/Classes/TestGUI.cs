@@ -22,15 +22,6 @@ namespace Assets.Code.Prototype.Classes
 
         private void ResetLevel ()
         {
-            // Grab the level generator
-            var lg = GameObject.FindGameObjectWithTag ("GameController").GetComponent<LevelGenerator> ();
-            lg.ResetLevel ();
-
-            // Grab the player
-            var p = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
-            p.ResetBall ();
-
-            GameController.Instance.Score = 0;
         }
     }
 }
