@@ -36,6 +36,9 @@ namespace Assets.Code.Prototype.Classes
                 case GameStates.Game:
                     Time.timeScale = 1.0f;
                     break;
+                case GameStates.Restart:
+                    RestartGame ();
+                    break;
                 case GameStates.Pause:
                     Time.timeScale = 0.0f;
                     break;
@@ -45,9 +48,20 @@ namespace Assets.Code.Prototype.Classes
             }
         }
 
-        private void StartGame ()
+        private void RestartGame ()
         {
-            
+            // Grab the level generator
+            var lg = GetComponent<LevelGenerator> ();
+            lg.ResetLevel ();
+
+            // Grab the player
+            var p = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
+            p.ResetBall ();
+
+            // Reset score.
+            Score = 0;
+
+            EventManager.ChangeState (GameStates.Game);
         }
 
         private void ChangeScore (int score)
