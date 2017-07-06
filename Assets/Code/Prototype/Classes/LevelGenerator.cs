@@ -39,6 +39,7 @@ namespace Assets.Code.Prototype.Classes
             StartCoroutine (SpawnFlooringSequence (.05f));
         }
 
+        // GLOBAL LEVEL RESET
         public void ResetLevel ()
         {
             CullAllObjects ();
@@ -53,6 +54,11 @@ namespace Assets.Code.Prototype.Classes
 
             for (int i = 0; i < _CurrentSequence.Count; i++)
                 _CurrentSequence[i].Cull ();
+
+            var st = GameObject.FindGameObjectWithTag ("Sequence Trigger");
+
+            if (st)
+                Destroy (st);
         }
 
         private void ResetSystems ()
