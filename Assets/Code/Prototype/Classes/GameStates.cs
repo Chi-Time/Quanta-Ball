@@ -10,6 +10,7 @@ namespace Assets.Code.Prototype.Classes
         Start,
         Settings,
         Game,
+        Restart,
         Pause,
         GameOver,
         Leaderboards,
