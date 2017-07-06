@@ -18,6 +18,7 @@ namespace Assets.Code.Prototype.Classes
         private Transform _Transform = null;
         private float _CMovementSpeed = 0.0f;
         private Vector3 _MovementDirection = Vector3.zero;
+        private GameController _GC = null;
 
         public void ResetBall ()
         {
@@ -37,6 +38,7 @@ namespace Assets.Code.Prototype.Classes
             _Rigidbody = GetComponent<Rigidbody> ();
             _Transform = GetComponent<Transform> ();
             this.gameObject.layer = LayerMask.NameToLayer ("Water");
+            _GC = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
         }
 
         private void Start ()
@@ -91,12 +93,14 @@ namespace Assets.Code.Prototype.Classes
         {
             if(IsGrounded())
             {
-                GameController.Instance.IsGameOver = false;
+                EventManager.ChangeState (GameStates.Game);
+                //GameController.Instance.IsGameOver = false;
                 _Rigidbody.velocity = _MovementDirection * _MovementSpeed * Time.fixedDeltaTime;
             }
             else
             {
-                GameController.Instance.IsGameOver = true;
+                //GameController.Instance.IsGameOver = true;
+                EventManager.ChangeState (GameStates.GameOver);
                 _Rigidbody.velocity = new Vector3 (_Rigidbody.velocity.x, _Rigidbody.velocity.y, _Rigidbody.velocity.z);
             }
         }
@@ -135,12 +139,12 @@ namespace Assets.Code.Prototype.Classes
 
         private void OnTriggerEnter (Collider other)
         {
-            if(other.gameObject.CompareTag("Sequence Trigger"))
+            if(other.gameObject.CompareTag ("Sequence Trigger"))
             {
                 //TODO: Implement generator callback for next sequence.
-                var lg = GameController.Instance.GetComponent<LevelGenerator> ();
-                lg.StartSequence ();
-                GameController.Instance.Score++;
+                _GC.GetComponent<LevelGenerator> ().StartSequence ();
+                _GC.Score++;
+
                 Destroy (other.gameObject);
             }
         }
