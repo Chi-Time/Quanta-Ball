@@ -24,6 +24,7 @@ namespace Assets.Code.Prototype.Classes
             _Rigidbody.velocity = Vector3.zero;
             _MovementSpeed = _CMovementSpeed;
             _MovementDirection = Vector3.zero;
+            _Transform.position = new Vector3 (6f, 0f, 0f);
         } 
 
         private void Awake ()
