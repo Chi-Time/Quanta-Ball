@@ -31,14 +31,7 @@ namespace Assets.Code.Prototype.Classes
 
             // Grab the player
             var p = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
-            p.transform.position = new Vector3 (6f, 0f, 0f);
             p.ResetBall ();
-
-            // Grab the sequence trigger if their's one left and then destroy it.
-            var st = GameObject.FindGameObjectWithTag ("Sequence Trigger");
-
-            if (st)
-                Destroy (st);
 
             GameController.Instance.Score = 0;
         }
