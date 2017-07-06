@@ -9,9 +9,8 @@ namespace Assets.Code.Prototype.Classes
     {
         public int Score { get { return _Score; } set { ChangeScore (value); } }
 
+        public static GameStates CurrentState = GameStates.Start;
         public static GameController Instance = null;
-
-        public bool IsGameOver = false;
 
         [SerializeField] private int _Score = 0;
 
