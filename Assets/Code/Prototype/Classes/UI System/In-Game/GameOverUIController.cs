@@ -7,7 +7,7 @@ namespace Assets.Code.Prototype.Classes
     {
         public void RestartGame ()
         {
-            EventManager.ChangeState (GameStates.Game);
+            EventManager.ChangeState (GameStates.Restart);
         }
 
         public void Menu ()
@@ -18,6 +18,6 @@ namespace Assets.Code.Prototype.Classes
         public void Quit ()
         {
             EventManager.ChangeState (GameStates.Pause);
-        } 
+        }
     }
 }
