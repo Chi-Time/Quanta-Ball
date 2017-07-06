@@ -38,6 +38,9 @@ namespace Assets.Code.Prototype.Classes
                 case GameStates.Game:
                     DisplayScreen (_GameScreen.gameObject);
                     break;
+                case GameStates.Restart:
+                    DisplayScreen (_GameScreen.gameObject);
+                    break;
                 case GameStates.Pause:
                     DisplayScreen (_PauseScreen.gameObject);
                     break;
