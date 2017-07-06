@@ -12,7 +12,7 @@ namespace Assets.Code.Prototype.Classes
 
         private void Start ()
         {
-            if(FindPlayer)
+            if (FindPlayer)
                 Target = GameObject.FindGameObjectWithTag ("Player").transform;
         }
 
@@ -24,9 +24,9 @@ namespace Assets.Code.Prototype.Classes
 
         private void SetTarget ()
         {
-            if(GameController.Instance.IsGameOver)
+            if (GameController.CurrentState == GameStates.GameOver)
                 Target = null;
-            else if (GameController.Instance.IsGameOver != null && Target == null)
+            else if (GameController.CurrentState == GameStates.Game && Target == null)
                 Target = GameObject.FindGameObjectWithTag ("Player").transform;
         }
 
