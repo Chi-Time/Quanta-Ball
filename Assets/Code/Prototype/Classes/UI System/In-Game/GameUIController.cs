@@ -5,46 +5,41 @@ namespace Assets.Code.Prototype.Classes
 {
     public class GameUIController : MonoBehaviour
     {
-        public enum UIStates { Start, Game, Pause, GameOver };
-        public UIStates CurrentUIState;
-
         public StartUIController _StartScreen = null;
         public InGameUIController _GameScreen = null;
         public PauseUIController _PauseScreen = null;
         public GameOverUIController _GameOverScreen = null;
 
-        void Awake ()
+        private void Awake ()
         {
             Setup ();
         }
 
-        void Setup ()
+        private void Setup ()
         {
-            UpdateState (UIStates.Start);
+            EventManager.OnStateSwitched += UpdateState;
         }
 
-        public void UpdateState (UIStates stateToActivate)
+        public void UpdateState (GameStates stateToActivate)
         {
-            CurrentUIState = stateToActivate;
-
             switch (stateToActivate)
             {
-                case UIStates.Start:
+                case GameStates.Start:
                     DisplayScreen (_StartScreen.gameObject);
                     break;
-                case UIStates.Game:
+                case GameStates.Game:
                     DisplayScreen (_GameScreen.gameObject);
                     break;
-                case UIStates.Pause:
+                case GameStates.Pause:
                     DisplayScreen (_PauseScreen.gameObject);
                     break;
-                case UIStates.GameOver:
+                case GameStates.GameOver:
                     DisplayScreen (_GameOverScreen.gameObject);
                     break;
             }
         }
 
-        void DisplayScreen (GameObject screenToDisplay)
+        private void DisplayScreen (GameObject screenToDisplay)
         {
             _StartScreen.gameObject.SetActive (false);
             _GameScreen.gameObject.SetActive (false);
@@ -52,6 +47,11 @@ namespace Assets.Code.Prototype.Classes
             _GameOverScreen.gameObject.SetActive (false);
 
             screenToDisplay.SetActive (true);
+        }
+
+        private void OnDestroy ()
+        {
+            EventManager.OnStateSwitched -= UpdateState;
         }
     }
 }
