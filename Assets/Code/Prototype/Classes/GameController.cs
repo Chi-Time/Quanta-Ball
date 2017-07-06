@@ -21,6 +21,36 @@ namespace Assets.Code.Prototype.Classes
             this.gameObject.tag = "GameController";
         }
 
+        private void UpdateState (GameStates state)
+        {
+            switch(state)
+            {
+                case GameStates.Start:
+                    Time.timeScale = 0.0f;
+                    break;
+                case GameStates.Settings:
+                    Time.timeScale = 0.0f;
+                    break;
+                case GameStates.Stats:
+                    Time.timeScale = 0.0f;
+                    break;
+                case GameStates.Game:
+                    Time.timeScale = 1.0f;
+                    break;
+                case GameStates.Pause:
+                    Time.timeScale = 0.0f;
+                    break;
+                case GameStates.GameOver:
+                    Time.timeScale = 0.0f;
+                    break;
+            }
+        }
+
+        private void StartGame ()
+        {
+            
+        }
+
         private void ChangeScore (int score)
         {
             _Score = score;
