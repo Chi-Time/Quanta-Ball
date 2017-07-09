@@ -39,9 +39,10 @@ namespace Assets.Code.Prototype.Classes
             StartCoroutine (SpawnFlooringSequence (.05f));
         }
 
-        // GLOBAL LEVEL RESET
+        // Stop all level gen and reset all pools/pieces ready for a new round.
         public void ResetLevel ()
         {
+            StopAllCoroutines ();
             CullAllObjects ();
             ResetSystems ();
             StartLevel ();
@@ -59,6 +60,8 @@ namespace Assets.Code.Prototype.Classes
 
             if (st)
                 Destroy (st);
+
+            EventManager.ChangeState (GameStates.Start);
         }
 
         private void ResetSystems ()
