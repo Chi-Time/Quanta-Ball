@@ -26,7 +26,7 @@ namespace Assets.Code.Prototype.Classes
         {
             if (GameController.CurrentState == GameStates.GameOver)
                 Target = null;
-            else if (GameController.CurrentState == GameStates.Game && Target == null)
+            else if ((GameController.CurrentState == GameStates.Game || GameController.CurrentState == GameStates.Start) && Target == null)
                 Target = GameObject.FindGameObjectWithTag ("Player").transform;
         }
 
