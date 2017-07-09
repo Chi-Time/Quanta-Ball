@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sequence Trigger
   - Barrier
+  - UI
   layers:
   - Default
   - TransparentFX
