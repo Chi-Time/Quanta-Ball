@@ -13,19 +13,30 @@ namespace Assets.Code.Prototype.Classes
         public static GameController Instance = null;
 
         [SerializeField] private int _Score = 0;
+        private GameUIController _UIController = null;
 
         private void Awake ()
         {
             Instance = this;
             this.gameObject.tag = "GameController";
+            _UIController = GameObject.FindGameObjectWithTag ("UI").GetComponent<GameUIController> ();
+
+            EventManager.OnStateSwitched += UpdateState;
         }
+
+        private void Start ()
+        {
+            EventManager.ChangeState (GameStates.Start);
+        } 
 
         private void UpdateState (GameStates state)
         {
+            CurrentState = state;
+
             switch(state)
             {
                 case GameStates.Start:
-                    Time.timeScale = 0.0f;
+                    Time.timeScale = 1.0f;
                     break;
                 case GameStates.Settings:
                     Time.timeScale = 0.0f;
@@ -43,7 +54,7 @@ namespace Assets.Code.Prototype.Classes
                     Time.timeScale = 0.0f;
                     break;
                 case GameStates.GameOver:
-                    Time.timeScale = 0.0f;
+                    Time.timeScale = 1.0f;
                     break;
             }
         }
@@ -60,8 +71,6 @@ namespace Assets.Code.Prototype.Classes
 
             // Reset score.
             Score = 0;
-
-            EventManager.ChangeState (GameStates.Game);
         }
 
         private void ChangeScore (int score)
@@ -71,6 +80,11 @@ namespace Assets.Code.Prototype.Classes
             // If the score is a multiple of 5 or has hit 30. Increase player speed and cap it.
             if(score % 5 == 0 && _Score <= 30)
                 GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ()._MovementSpeed += 50f;
+        }
+
+        private void OnDestroy ()
+        {
+            EventManager.OnStateSwitched -= UpdateState;
         }
     }
 }
