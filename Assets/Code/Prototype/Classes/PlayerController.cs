@@ -26,6 +26,7 @@ namespace Assets.Code.Prototype.Classes
             _MovementSpeed = _CMovementSpeed;
             _MovementDirection = Vector3.zero;
             _Transform.position = new Vector3 (6f, 0f, 0f);
+            _Transform.rotation = Quaternion.Euler (Vector3.zero);
         } 
 
         private void Awake ()
@@ -39,7 +40,18 @@ namespace Assets.Code.Prototype.Classes
             _Transform = GetComponent<Transform> ();
             this.gameObject.layer = LayerMask.NameToLayer ("Water");
             _GC = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
+
+            EventManager.OnStateSwitched += UpdateState;
         }
+
+        private void UpdateState (GameStates state)
+        {
+            if (state == GameStates.Restart)
+                ResetBall ();
+
+            if (state == GameStates.Start)
+                gameObject.SetActive (true);
+        } 
 
         private void Start ()
         {
@@ -81,26 +93,33 @@ namespace Assets.Code.Prototype.Classes
                 _MovementDirection = Vector3.forward;
             // Player is still, move right to begin with.
             else
+            {
+                EventManager.ChangeState (GameStates.Game);
                 _MovementDirection = Vector3.left;
+            }
         }
 
         private void FixedUpdate ()
         {
             Move ();
+            CheckPosition ();
         }
 
         private void Move ()
         {
-            if(IsGrounded())
-            {
-                EventManager.ChangeState (GameStates.Game);
+            if(IsGrounded ())
                 _Rigidbody.velocity = _MovementDirection * _MovementSpeed * Time.fixedDeltaTime;
-            }
-            else
-            {
-                EventManager.ChangeState (GameStates.GameOver);
+            else if (!IsGrounded ())
                 _Rigidbody.velocity = new Vector3 (_Rigidbody.velocity.x, _Rigidbody.velocity.y, _Rigidbody.velocity.z);
-            }
+        }
+
+        private void CheckPosition ()
+        {
+            if (_Transform.position.y <= -.5f)
+                EventManager.ChangeState (GameStates.GameOver);
+
+            if (_Transform.position.y <= -50f)
+                gameObject.SetActive (false);
         }
 
         private bool IsGrounded ()
@@ -139,7 +158,6 @@ namespace Assets.Code.Prototype.Classes
         {
             if(other.gameObject.CompareTag ("Sequence Trigger"))
             {
-                //TODO: Implement generator callback for next sequence.
                 _GC.GetComponent<LevelGenerator> ().StartSequence ();
                 _GC.Score++;
 
