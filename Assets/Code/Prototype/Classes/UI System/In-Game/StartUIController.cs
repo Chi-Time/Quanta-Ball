@@ -9,6 +9,11 @@ namespace Assets.Code.Prototype.Classes
             EventManager.ChangeState (GameStates.Game);
         }
 
+        public void ShowStats ()
+        {
+            EventManager.ChangeState (GameStates.Stats);
+        }
+
         public void Exit ()
         {
             Application.Quit ();
