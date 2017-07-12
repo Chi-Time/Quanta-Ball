@@ -7,7 +7,7 @@ namespace Assets.Code.Prototype.Classes
     {
         private void OnGUI ()
         {
-            GUI.Label (new Rect (150, 150, 250, 100), "Score: " + GameController.Instance.Score);
+            GUI.Label (new Rect (150, 150, 250, 100), "Score: " + GameController.Stats.Score);
 
             if (GameController.CurrentState == GameStates.GameOver)
             {
