@@ -22,6 +22,7 @@ namespace Assets.Code.Prototype.Classes
 
         public void ResetBall ()
         {
+            _Rigidbody.useGravity = true;
             _Rigidbody.velocity = Vector3.zero;
             _MovementSpeed = _CMovementSpeed;
             _MovementDirection = Vector3.zero;
@@ -40,18 +41,7 @@ namespace Assets.Code.Prototype.Classes
             _Transform = GetComponent<Transform> ();
             this.gameObject.layer = LayerMask.NameToLayer ("Water");
             _GC = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ();
-
-            EventManager.OnStateSwitched += UpdateState;
         }
-
-        private void UpdateState (GameStates state)
-        {
-            if (state == GameStates.Restart)
-                ResetBall ();
-
-            if (state == GameStates.Start)
-                gameObject.SetActive (true);
-        } 
 
         private void Start ()
         {
@@ -119,7 +109,11 @@ namespace Assets.Code.Prototype.Classes
                 EventManager.ChangeState (GameStates.GameOver);
 
             if (_Transform.position.y <= -50f)
-                gameObject.SetActive (false);
+            {
+                _Transform.position = Vector3.zero;
+                _Rigidbody.velocity = Vector3.zero;
+                _Rigidbody.useGravity = false;
+            }
         }
 
         private bool IsGrounded ()
