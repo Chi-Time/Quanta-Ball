@@ -5,77 +5,12 @@ namespace Assets.Code.Prototype.Classes
 {
     public class GameUIController : MonoBehaviour
     {
-        public StartUIController _StartScreen = null;
-        public SettingsUIController _SettingsScreen = null;
-        public InGameUIController _GameScreen = null;
-        public PauseUIController _PauseScreen = null;
-        public GameOverUIController _GameOverScreen = null;
-        public StatsUIController _StatsScreen = null;
+        [SerializeField] private Text _ScoreLabel = null;
 
-        private void Awake ()
+        //TODO: Consider using event for increasing score to de-couple code.
+        public void UpdateScore (int score)
         {
-            AssignReferences ();
-            Setup ();
-        }
-
-        private void Setup ()
-        {
-            EventManager.OnStateSwitched += UpdateState;
-        }
-
-        private void AssignReferences ()
-        {
-            _StartScreen = GetComponentInChildren<StartUIController> ();
-            _SettingsScreen = GetComponentInChildren<SettingsUIController> ();
-            _GameScreen = GetComponentInChildren<InGameUIController> ();
-            _PauseScreen = GetComponentInChildren<PauseUIController> ();
-            _GameOverScreen = GetComponentInChildren<GameOverUIController> ();
-            _StatsScreen = GetComponentInChildren<StatsUIController> ();
-        }
-
-        public void UpdateState (GameStates stateToActivate)
-        {
-            switch (stateToActivate)
-            {
-                case GameStates.Start:
-                    DisplayScreen (_StartScreen.gameObject);
-                    break;
-                case GameStates.Settings:
-                    DisplayScreen (_SettingsScreen.gameObject);
-                    break;
-                case GameStates.Stats:
-                    DisplayScreen (_StatsScreen.gameObject);
-                    break;
-                case GameStates.Game:
-                    DisplayScreen (_GameScreen.gameObject);
-                    break;
-                case GameStates.Restart:
-                    DisplayScreen (_GameScreen.gameObject);
-                    break;
-                case GameStates.Pause:
-                    DisplayScreen (_PauseScreen.gameObject);
-                    break;
-                case GameStates.GameOver:
-                    DisplayScreen (_GameOverScreen.gameObject);
-                    break;
-            }
-        }
-
-        private void DisplayScreen (GameObject screenToDisplay)
-        {
-            _StartScreen.gameObject.SetActive (false);
-            _SettingsScreen.gameObject.SetActive (false);
-            _StatsScreen.gameObject.SetActive (false);
-            _GameScreen.gameObject.SetActive (false);
-            _PauseScreen.gameObject.SetActive (false);
-            _GameOverScreen.gameObject.SetActive (false);
-
-            screenToDisplay.SetActive (true);
-        }
-
-        private void OnDestroy ()
-        {
-            EventManager.OnStateSwitched -= UpdateState;
+            _ScoreLabel.text = "Score: " + score;
         }
     }
 }

@@ -13,13 +13,13 @@ namespace Assets.Code.Prototype.Classes
         public static GameController Instance = null;
 
         [SerializeField] private int _Score = 0;
-        private GameUIController _UIController = null;
+        private UIController _UIController = null;
 
         private void Awake ()
         {
             Instance = this;
             this.gameObject.tag = "GameController";
-            _UIController = GameObject.FindGameObjectWithTag ("UI").GetComponent<GameUIController> ();
+            _UIController = GameObject.FindGameObjectWithTag ("UI").GetComponent<UIController> ();
 
             EventManager.OnStateSwitched += UpdateState;
         }
@@ -76,6 +76,8 @@ namespace Assets.Code.Prototype.Classes
         private void ChangeScore (int score)
         {
             _Score = score;
+
+            _UIController._GameScreen.UpdateScore (_Score);
 
             // If the score is a multiple of 5 or has hit 30. Increase player speed and cap it.
             if(score % 5 == 0 && _Score <= 30)
