@@ -12,5 +12,11 @@ namespace Assets.Code.Prototype.Classes
         {
             _ScoreLabel.text = "Score: " + score;
         }
+
+        // For mobile builds only.
+        public void Pause ()
+        {
+            EventManager.ChangeState (GameStates.Pause);
+        }
     }
 }
