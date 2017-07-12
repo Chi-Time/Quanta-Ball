@@ -37,6 +37,7 @@ namespace Assets.Code.Prototype.Classes
 
         private void AssignReferences ()
         {
+            this.gameObject.tag = "Player";
             _Rigidbody = GetComponent<Rigidbody> ();
             _Transform = GetComponent<Transform> ();
             this.gameObject.layer = LayerMask.NameToLayer ("Water");
@@ -66,6 +67,14 @@ namespace Assets.Code.Prototype.Classes
             #if UNITY_STANDALONE
             if (Input.GetButtonDown("Fire1"))
                 ChangeMovementDirection ();
+
+            if(Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Escape))
+            {
+                if(GameController.CurrentState == GameStates.Game)
+                    EventManager.ChangeState(GameStates.Pause);
+                else
+                    EventManager.ChangeState(GameStates.Game);
+            }
             #endif
             #if UNITY_ANDROID
             if (Input.GetMouseButtonDown (0))
@@ -75,17 +84,22 @@ namespace Assets.Code.Prototype.Classes
 
         private void ChangeMovementDirection ()
         {
-            // Right
-            if (_MovementDirection == Vector3.forward || _MovementDirection == Vector3.back)
-                _MovementDirection = Vector3.left;
-            // Forward
-            else if (_MovementDirection == Vector3.right || _MovementDirection == Vector3.left)
-                _MovementDirection = Vector3.forward;
-            // Player is still, move right to begin with.
-            else
+            if(GameController.CurrentState == GameStates.Game)
             {
-                EventManager.ChangeState (GameStates.Game);
-                _MovementDirection = Vector3.left;
+                // Right
+                if (_MovementDirection == Vector3.forward || _MovementDirection == Vector3.back)
+                    _MovementDirection = Vector3.left;
+                // Forward
+                else if (_MovementDirection == Vector3.right || _MovementDirection == Vector3.left)
+                    _MovementDirection = Vector3.forward;
+                // Player is still, move right to begin with.
+                else
+                {
+                    EventManager.ChangeState (GameStates.Game);
+                    _MovementDirection = Vector3.left;
+                }
+
+                GameController.Stats.MoveCount++;
             }
         }
 
@@ -153,7 +167,7 @@ namespace Assets.Code.Prototype.Classes
             if(other.gameObject.CompareTag ("Sequence Trigger"))
             {
                 _GC.GetComponent<LevelGenerator> ().StartSequence ();
-                _GC.Score++;
+                GameController.Stats.Score++;
 
                 Destroy (other.gameObject);
             }
