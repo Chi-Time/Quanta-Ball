@@ -14,12 +14,23 @@ namespace Assets.Code.Prototype.Classes
 
         private void Awake ()
         {
+            AssignReferences ();
             Setup ();
         }
 
         private void Setup ()
         {
             EventManager.OnStateSwitched += UpdateState;
+        }
+
+        private void AssignReferences ()
+        {
+            _StartScreen = GetComponentInChildren<StartUIController> ();
+            _SettingsScreen = GetComponentInChildren<SettingsUIController> ();
+            _GameScreen = GetComponentInChildren<InGameUIController> ();
+            _PauseScreen = GetComponentInChildren<PauseUIController> ();
+            _GameOverScreen = GetComponentInChildren<GameOverUIController> ();
+            _StatsScreen = GetComponentInChildren<StatsUIController> ();
         }
 
         public void UpdateState (GameStates stateToActivate)
