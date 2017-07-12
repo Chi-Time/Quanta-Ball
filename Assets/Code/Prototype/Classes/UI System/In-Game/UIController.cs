@@ -6,7 +6,6 @@ namespace Assets.Code.Prototype.Classes
     public class UIController : MonoBehaviour
     {
         public StartUIController _StartScreen = null;
-        public SettingsUIController _SettingsScreen = null;
         public GameUIController _GameScreen = null;
         public PauseUIController _PauseScreen = null;
         public GameOverUIController _GameOverScreen = null;
@@ -20,13 +19,13 @@ namespace Assets.Code.Prototype.Classes
 
         private void Setup ()
         {
+            this.gameObject.tag = "UI";
             EventManager.OnStateSwitched += UpdateState;
         }
 
         private void AssignReferences ()
         {
             _StartScreen = GetComponentInChildren<StartUIController> ();
-            _SettingsScreen = GetComponentInChildren<SettingsUIController> ();
             _GameScreen = GetComponentInChildren<GameUIController> ();
             _PauseScreen = GetComponentInChildren<PauseUIController> ();
             _GameOverScreen = GetComponentInChildren<GameOverUIController> ();
@@ -39,9 +38,6 @@ namespace Assets.Code.Prototype.Classes
             {
                 case GameStates.Start:
                     DisplayScreen (_StartScreen.gameObject);
-                    break;
-                case GameStates.Settings:
-                    DisplayScreen (_SettingsScreen.gameObject);
                     break;
                 case GameStates.Stats:
                     DisplayScreen (_StatsScreen.gameObject);
@@ -64,7 +60,6 @@ namespace Assets.Code.Prototype.Classes
         private void DisplayScreen (GameObject screenToDisplay)
         {
             _StartScreen.gameObject.SetActive (false);
-            _SettingsScreen.gameObject.SetActive (false);
             _StatsScreen.gameObject.SetActive (false);
             _GameScreen.gameObject.SetActive (false);
             _PauseScreen.gameObject.SetActive (false);
