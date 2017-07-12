@@ -7,22 +7,29 @@ namespace Assets.Code.Prototype.Classes
     [AddComponentMenu ("Controllers/Game Controller")]
     public class GameController : MonoBehaviour
     {
-        public int Score { get { return _Score; } set { ChangeScore (value); } }
-
         public static GameStates CurrentState = GameStates.Start;
-        public static GameController Instance = null;
+        public static Stats Stats = null;
 
-        [SerializeField] private int _Score = 0;
-        private UIController _UIController = null;
+        [SerializeField] private Stats _Stats = new Stats ();
 
         private void Awake ()
         {
-            Instance = this;
-            this.gameObject.tag = "GameController";
-            _UIController = GameObject.FindGameObjectWithTag ("UI").GetComponent<UIController> ();
-
-            EventManager.OnStateSwitched += UpdateState;
+			AssignReferences ();
+			Setup ();
         }
+
+		private void AssignReferences ()
+		{
+			var ui = GameObject.FindGameObjectWithTag ("UI").GetComponent<UIController> ();
+			_Stats.Init (ui);
+			Stats = _Stats;
+		}
+
+		private void Setup ()
+		{
+			this.gameObject.tag = "GameController";
+			EventManager.OnStateSwitched += UpdateState;
+		}
 
         private void Start ()
         {
@@ -37,9 +44,6 @@ namespace Assets.Code.Prototype.Classes
             {
                 case GameStates.Start:
                     Time.timeScale = 1.0f;
-                    break;
-                case GameStates.Settings:
-                    Time.timeScale = 0.0f;
                     break;
                 case GameStates.Stats:
                     Time.timeScale = 0.0f;
@@ -69,19 +73,8 @@ namespace Assets.Code.Prototype.Classes
             var p = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
             p.ResetBall ();
 
-            // Reset score.
-            Score = 0;
-        }
-
-        private void ChangeScore (int score)
-        {
-            _Score = score;
-
-            _UIController._GameScreen.UpdateScore (_Score);
-
-            // If the score is a multiple of 5 or has hit 30. Increase player speed and cap it.
-            if(score % 5 == 0 && _Score <= 30)
-                GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ()._MovementSpeed += 50f;
+			// Store the current stats and reset them.
+			_Stats.Store ();
         }
 
         private void OnDestroy ()
@@ -89,4 +82,48 @@ namespace Assets.Code.Prototype.Classes
             EventManager.OnStateSwitched -= UpdateState;
         }
     }
+
+	[System.Serializable]
+	public class Stats
+	{
+		public int Score { get { return _Score; } set { ChangeScore (value); } }
+		public int MoveCount { get { return _MoveCount; } set { _MoveCount = value; } }
+		public int BarrierHits { get { return _BarrierHits; } set { _BarrierHits = value; } }
+
+		[SerializeField] private int _Score = 0;
+		[SerializeField] private int _MoveCount = 0;
+		[SerializeField] private int _BarrierHits = 0;
+
+		private UIController _UI = null;
+
+		public void Init (UIController ui)
+		{
+			_UI = ui;
+		}
+
+		public void Store ()
+		{
+			//TODO: Store stats after each match.
+
+			Reset ();
+		}
+
+		private void Reset ()
+		{
+			_Score = 0;
+			_MoveCount = 0;
+			_BarrierHits = 0;
+		}
+
+		private void ChangeScore (int score)
+		{
+			_Score = score;
+
+			_UI._GameScreen.UpdateScore (_Score);
+
+			// If the score is a multiple of 5 or has hit 30. Increase player speed and cap it.
+			if (score % 5 == 0 && _Score <= 30)
+				GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ()._MovementSpeed += 50f;
+		}
+	}
 }
