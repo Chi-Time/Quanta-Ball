@@ -40,7 +40,10 @@ namespace Assets.Code.Prototype.Classes
         private void OnCollisionEnter (Collision collision)
         {
             if (collision.gameObject.CompareTag ("Player"))
+            {
                 Shrink ();
+                GameController.Stats.BarrierHits++;
+            } 
         }
 
         private void Shrink ()
